@@ -17,7 +17,7 @@ import java.util.List;
 public class EditGoods extends JFrame{
     private JTextField nameField;
     private JComboBox <TypeOfGoods> comboBox1;
-    private JTextField textField2;
+    private JTextField priceField;
     private JButton submitButton;
     private JButton addTypeButton;
     private JButton cancelButton;
@@ -30,9 +30,10 @@ public class EditGoods extends JFrame{
         setLocationRelativeTo(null);
         comboBox1.setModel(model);
         nameField.setText(good.getName());
-        textField2.setText(String.valueOf(good.getPrice()));
+        priceField.setText(String.valueOf(good.getPrice()));
         displayComboBox();
         pack();
+        this.setTitle("EditGoods - window");
         addTypeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -44,13 +45,17 @@ public class EditGoods extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 good.setName(nameField.getText());
+                // comboBox1 object is the same way as ITEM in ListOfGoods holds the whole object (object in this case is whole list
+                // of TypeOfGoods not ONLY one type of Good) rather then only NAME
                 good.setType((TypeOfGoods) comboBox1.getSelectedItem());
-                good.setPrice(Integer.parseInt(textField2.getText()));
+                good.setPrice(Integer.parseInt(priceField.getText()));
                 try {
                     GoodDAO.getDAO().createOrUpdate(good);
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
+                // we transfered context to this class to be able to execute line below
+                // it can be executed only if class have link to the parent window.
                 parentForm.displayTable();
                 dispose();
             }

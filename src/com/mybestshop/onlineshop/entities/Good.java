@@ -52,6 +52,8 @@ public class Good {
         this.type = type;
     }
 
+    // we overwrote this method so when we display ITEM in ListOfGoods it can be shown as name and not as
+    // default value of toString which isn't informative.
     @Override
     public String toString() {
         return String.valueOf(name);

@@ -12,6 +12,9 @@ import java.sql.SQLException;
 /**
  * Created by Vlad on 6/11/2015.
  */
+
+    // we use 'implements' interface here so that we can have option to inherit from other interfaces and then from
+    // class instead of ONLY from one class. This is used for flexibility.
 public class GoodDAO implements Constants{
 
     public static Dao<Good, Integer> getDAO(){

@@ -24,7 +24,7 @@ public class BuyAndSell extends JFrame{
     private JPanel myPanel;
     private DefaultComboBoxModel<Good> model = new DefaultComboBoxModel<Good>();
 
-    public BuyAndSell(){
+    public BuyAndSell( final LeftOversInWareHouse parentWindow){
         setContentPane(myPanel);
         pack();
         setLocationRelativeTo(null);
@@ -32,6 +32,7 @@ public class BuyAndSell extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         comboBox1.setModel(model);
         displayComboBox();
+        this.setTitle("BuyAndSell - window");
         addGoodButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,6 +58,7 @@ public class BuyAndSell extends JFrame{
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
+              parentWindow.displayTable();
             }
         };
 

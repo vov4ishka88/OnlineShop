@@ -39,10 +39,15 @@ public class ListOfGoods extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table1.getSelectedRow();
+                // if we don't choose any row value that we get will be -1
                 if (selectedRow >= 0) {
+                    // we carry on the context of current window so that all changes that we make in
+                    // EditGoods window would also be applied in current (ListOfGoods) window
+                    // In case we don't need refreshing of current window we don't to carry on this context.
+                    // We use downCasting from Object to Good.
                     new EditGoods(ListOfGoods.this, (Good)tableModel.getValueAt(selectedRow, 1));
                 } else {
-                    JOptionPane.showMessageDialog(ListOfGoods.this, "Please chose some item for editing");
+                    JOptionPane.showMessageDialog(ListOfGoods.this, "Please choose some item for editing");
                 }
             }
         });
@@ -52,6 +57,20 @@ public class ListOfGoods extends JFrame{
             public void actionPerformed(ActionEvent e) {
                     new EditGoods( ListOfGoods.this, new Good());
 
+            }
+        });
+// remove button deletes row below?
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              int selectedRow = table1.getSelectedRow();
+                try {
+                    int deletedId = (Integer)tableModel.getValueAt(selectedRow, 0);
+                    GoodDAO.getDAO().deleteById(deletedId);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                displayTable();
             }
         });
 
